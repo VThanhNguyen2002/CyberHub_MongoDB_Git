@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import ProductItem from '@components/ProductItem';
-import { Row, Col } from 'antd';
+import { Row, Col, Spin  } from 'antd';
 
 interface Product {
   _id: string;
@@ -31,7 +32,7 @@ const FetchDataPage: React.FC = () => {
         setProducts(data);
         setLoading(false);
       } catch (error) {
-        setError(error.message);
+        setError((error as Error).message);
         setLoading(false);
       }
     };
@@ -39,7 +40,7 @@ const FetchDataPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Spin tip="Loading..." />;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -54,6 +55,8 @@ const FetchDataPage: React.FC = () => {
             image_url={product.image_url}
             basic_specs={product.basic_specs}
             rating={product.rating}
+            category={product.category}
+            description={product.description}
           />
         </Col>
       ))}
