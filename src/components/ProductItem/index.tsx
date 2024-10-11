@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Badge, Rate, Typography } from 'antd';
-import { HddOutlined, DatabaseOutlined, DesktopOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { DesktopOutlined } from '@ant-design/icons';
 import styles from './ProductItems.module.css';
 
 const { Meta } = Card;
