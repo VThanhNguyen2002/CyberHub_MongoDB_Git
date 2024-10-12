@@ -11,12 +11,10 @@ app.use(cors({
 }));
 
 
-// Kết nối MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
-// Định nghĩa schema và route sản phẩm
 const productSchema = new mongoose.Schema({
   name: String,
   price: Number,
