@@ -25,7 +25,7 @@ const FetchDataPage: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const apiUrl = process.env.NODE_ENV === 'production'
-          ? 'https://cyber-hub-mongo-db-git-vietthanhnguyen2006s-projects.vercel.app/api'
+          ? 'https://cyber-hub-mongo-db-git-vietthanhnguyen2006s-projects.vercel.app'
           : 'http://localhost:5000';
   
         const response = await fetch(`${apiUrl}/products`);
