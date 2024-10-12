@@ -24,11 +24,7 @@ const FetchDataPage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const apiUrl = process.env.NODE_ENV === 'production'
-          ? 'https://cyber-hub-mongo-db-git-vietthanhnguyen2006s-projects.vercel.app'
-          : 'http://localhost:5000';
-
-        const response = await fetch(`${apiUrl}/products`);
+        const response = await fetch('/api/products');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }

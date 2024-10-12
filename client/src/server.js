@@ -1,22 +1,20 @@
+// server.js
+
 require('dotenv').config();
+const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-const path = require('path');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
-app.use(cors({
-  origin: '*'
-}));
-
-// Kết nối MongoDB Atlas
+// Kết nối đến MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
-// Định nghĩa schema và route sản phẩm
+// Định nghĩa schema và model
 const productSchema = new mongoose.Schema({
   name: String,
   price: Number,
@@ -31,8 +29,8 @@ const productSchema = new mongoose.Schema({
 
 const ProductModel = mongoose.model('Product', productSchema, 'Products');
 
-// API lấy sản phẩm
-app.get('/products', async (req, res) => {
+// Định nghĩa route
+app.get('/api/products', async (req, res) => {
   try {
     const products = await ProductModel.find();
     res.json(products);
@@ -41,14 +39,8 @@ app.get('/products', async (req, res) => {
   }
 });
 
-// Phục vụ tệp tĩnh từ thư mục client
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Đảm bảo tất cả các route không phải API được xử lý bởi React
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-});
-
-app.listen(5000, () => {
-  console.log('Server running on port 5000');
+// Khởi động server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

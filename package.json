@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node server/server.js"
+    "server": "node client/src/server.js"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
