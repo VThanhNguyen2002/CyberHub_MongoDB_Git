@@ -25,9 +25,9 @@ const FetchDataPage: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const apiUrl = process.env.NODE_ENV === 'production'
-        ? 'cyber-hub-mongo-db-git-vietthanhnguyen2006s-projects.vercel.app'
-        : 'http://localhost:5000';
-
+          ? 'https://cyber-hub-mongo-db-git-vietthanhnguyen2006s-projects.vercel.app/api'
+          : 'http://localhost:5000';
+  
         const response = await fetch(`${apiUrl}/products`);
         if (!response.ok) {
           throw new Error('Failed to fetch products');
@@ -40,9 +40,10 @@ const FetchDataPage: React.FC = () => {
         setLoading(false);
       }
     };
-
+  
     fetchProducts();
   }, []);
+  
 
   if (loading) return <Spin tip="Loading..." />;
   if (error) return <div>Error: {error}</div>;
