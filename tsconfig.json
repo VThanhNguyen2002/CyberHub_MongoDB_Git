@@ -17,12 +17,13 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@page/*": ["src/pages/*"],
-      "@api/*": ["src/api/*"],
-      "@interfaces/*": ["src/interfaces/*"]
+      "@/*": ["client/src/*"],
+      "@components/*": ["client/src/components/*"],
+      "@page/*": ["client/src/pages/*"],
+      "@api/*": ["client/src/api/*"],
+      "@interfaces/*": ["client/src/interfaces/*"]
     }
   },
-  "include": ["src"],
+  "include": ["client/src", "server/server.js"],
   "exclude": ["node_modules", "**/*.js"]
 }
