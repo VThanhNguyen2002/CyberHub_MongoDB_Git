@@ -14,7 +14,13 @@
     }
   ],
   "routes": [
-    { "src": "/products", "dest": "/server/server.js" },
-    { "src": "/(.*)", "dest": "/client/$1" }
+    {
+      "src": "^/products$",
+      "dest": "/server/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/$1"
+    }
   ]
 }
