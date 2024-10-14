@@ -62,3 +62,11 @@
     max-width: 100%;
   }
 }
+
+.noProductsMessage {
+  font-size: 18px;
+  color: #ff4d4f;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+}

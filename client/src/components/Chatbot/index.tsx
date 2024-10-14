@@ -5,7 +5,9 @@ import styles from './Chatbox.module.css';
 import logo from '../../assets/logo1.png'; // Import your logo
 
 const Chatbox = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<
+    { text: string; timestamp: string; sender: string }[]
+  >([]);
   const [inputValue, setInputValue] = useState(''); // Manage input field
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -61,10 +63,9 @@ const Chatbox = () => {
     }
   };
 
-  // Function to handle adding emoji to input field
-  const addEmoji = (emoji) => {
-    setInputValue((prevInput) => prevInput + emoji.native); // Append emoji to input field
-  };
+  const addEmoji = (emoji: any) => {
+    setInputValue((prevInput) => prevInput + emoji.native);  // Use 'emoji.native' assuming the emoji object has this property
+  };  
 
   // Handle sound mute
   const toggleMute = () => {
@@ -113,13 +114,12 @@ const Chatbox = () => {
 
           {/* Chat Content */}
           <div className={styles.chatboxContent}>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={
-                  message.sender === 'admin' ? styles.adminMessageContainer : styles.userMessageContainer
-                }
-              >
+          {messages.map((message: { text: string; timestamp: string; sender: string }, index: number) => (
+          <div key={index}
+            className={
+              message.sender === 'admin' ? styles.adminMessageContainer : styles.userMessageContainer
+            }
+          >
                 {message.sender === 'admin' ? (
                   <img src={logo} alt="Logo" className={styles.messageLogo} />
                 ) : (
