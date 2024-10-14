@@ -1,21 +1,15 @@
 import React from 'react';
-import { Card, Badge, Rate, Typography } from 'antd';
-import { DesktopOutlined } from '@ant-design/icons';
 import styles from './ProductItems.module.css';
-
-const { Meta } = Card;
-const { Text } = Typography;
 
 interface ProductItemProps {
   name: string;
   price: number;
-  category: string;
   discount: number;
-  stock: number;
-  description: string;
   image_url: string;
-  basic_specs: string;
+  description: string;
+  category: string; // Thêm category để phân loại
   rating: number;
+  reviewCount: number; // Số lượt đánh giá
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({
@@ -23,27 +17,58 @@ const ProductItem: React.FC<ProductItemProps> = ({
   price,
   discount,
   image_url,
-  basic_specs,
+  description,
+  category,
   rating,
+  reviewCount,
 }) => {
+  // Lấy thông số kỹ thuật dựa trên category
+  const specs = getSpecsForCategory(category, description);
+
   return (
-    <Badge.Ribbon text={`${discount}% Off`} color="red">
-      <Card
-        hoverable
-        cover={<img src={image_url} alt={name} className={styles.image} />}
-        className={styles.productItem}
-      >
-        <Meta title={<Text strong>{name}</Text>} />
-        <Text className={styles.price} strong>{price.toLocaleString('vi-VN')}đ</Text>
-        <div className={styles.specsContainer}>
-          {basic_specs.split(', ').map((spec, index) => (
-            <div key={index} className={styles.specItem}><DesktopOutlined /> {spec}</div>
-          ))}
-        </div>
-        <Rate allowHalf defaultValue={rating} />
-      </Card>
-    </Badge.Ribbon>
+    <div className={styles.card}>
+      {discount > 0 && <div className={styles.ribbon}>{discount}% Off</div>}
+      <img src={image_url} alt={name} className={styles.image} />
+      <h2 className={styles.productTitle}>{name}</h2>
+      <p className={styles.price}>
+        {price.toLocaleString('vi-VN')}đ
+        {discount > 0 && (
+          <span className={styles.originalPrice}>
+            ({(price / (1 - discount / 100)).toLocaleString('vi-VN')}đ)
+          </span>
+        )}
+      </p>
+
+      {/* Phần render thông số kỹ thuật */}
+      <div className={styles.specsContainer}>
+        {specs.map((spec, index) => (
+          <div key={index} className={styles.specItem}>
+            <i className={`fas fa-${category === 'Monitor' ? 'desktop' : category === 'Laptop' ? 'laptop' : 'mouse'}`}></i> {spec}
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.rating}>
+        <span className={styles.ratingValue}>{rating.toFixed(1)}</span>
+        <span className={styles.star}>★</span>
+        <span className={styles.reviewCount}>({reviewCount} đánh giá)</span>
+      </div>
+    </div>
   );
+};
+
+// Hàm phân loại thông số kỹ thuật dựa trên category
+const getSpecsForCategory = (category: string, description: string) => {
+  switch (category) {
+    case 'Monitor':
+      return description.match(/(\d+\.?\d*) inch|Full HD/g); // Ví dụ như kích thước và độ phân giải
+    case 'Laptop':
+      return description.match(/(Intel.*|AMD.*|\d+GB RAM|\d+GB SSD|\d+\.?\d* inch)/g); // CPU, RAM, SSD, Kích thước màn hình
+    case 'Mouse':
+      return description.match(/(\d+,\d+ DPI|nút lập trình)/g); // DPI và nút lập trình
+    default:
+      return [];
+  }
 };
 
 export default ProductItem;

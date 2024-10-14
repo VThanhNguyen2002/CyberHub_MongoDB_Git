@@ -12,7 +12,8 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './client/src/components'),
       '@page': path.resolve(__dirname, './client/src/pages'),
       '@api': path.resolve(__dirname, './client/src/api'),
-      '@interfaces': path.resolve(__dirname, './client//src/interfaces')
+      '@interfaces': path.resolve(__dirname, './client/src/interfaces'),
+      '@assets': path.resolve(__dirname, './client/src/assets'),
     }
   },
   css: {
