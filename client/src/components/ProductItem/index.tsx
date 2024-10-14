@@ -7,10 +7,12 @@ interface ProductItemProps {
   discount: number;
   image_url: string;
   description: string;
-  category: string; // Thêm category để phân loại
+  category: string;
   rating: number;
-  reviewCount: number; // Số lượt đánh giá
+  stock: number;
+  basic_specs: string;
 }
+
 
 const ProductItem: React.FC<ProductItemProps> = ({
   name,
@@ -20,7 +22,6 @@ const ProductItem: React.FC<ProductItemProps> = ({
   description,
   category,
   rating,
-  reviewCount,
 }) => {
   // Lấy thông số kỹ thuật dựa trên category
   const specs = getSpecsForCategory(category, description);
@@ -41,17 +42,18 @@ const ProductItem: React.FC<ProductItemProps> = ({
 
       {/* Phần render thông số kỹ thuật */}
       <div className={styles.specsContainer}>
-        {specs.map((spec, index) => (
-          <div key={index} className={styles.specItem}>
-            <i className={`fas fa-${category === 'Monitor' ? 'desktop' : category === 'Laptop' ? 'laptop' : 'mouse'}`}></i> {spec}
-          </div>
-        ))}
+      {specs && specs.map((spec, index) => (
+        <div key={index} className={styles.specItem}>
+          <i className={`fas fa-${category === 'Monitor' ? 'desktop' : category === 'Laptop' ? 'laptop' : 'mouse'}`}></i> {spec}
+        </div>
+      ))}
+
       </div>
 
       <div className={styles.rating}>
         <span className={styles.ratingValue}>{rating.toFixed(1)}</span>
         <span className={styles.star}>★</span>
-        <span className={styles.reviewCount}>({reviewCount} đánh giá)</span>
+        <span className={styles.reviewCount}>(1 đánh giá)</span>
       </div>
     </div>
   );
