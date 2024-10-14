@@ -1,7 +1,6 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductItem from '@components/ProductItem';
-import { Row, Col, Spin } from 'antd';
+import styles from './Product.module.css';
 
 interface Product {
   _id: string;
@@ -16,7 +15,7 @@ interface Product {
   rating: number;
 }
 
-const FetchDataPage: React.FC = () => {
+const Product: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,13 +39,13 @@ const FetchDataPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  if (loading) return <Spin tip="Loading..." />;
+  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <Row gutter={[16, 16]} justify="center">
+    <div className={styles.productContainer}>
       {products.map(product => (
-        <Col key={product._id} xs={24} sm={12} md={8} lg={6} xl={4}>
+        <div key={product._id} className={styles.productCard}>
           <ProductItem
             name={product.name}
             price={product.price}
@@ -58,10 +57,10 @@ const FetchDataPage: React.FC = () => {
             category={product.category}
             description={product.description}
           />
-        </Col>
+        </div>
       ))}
-    </Row>
+    </div>
   );
 };
 
-export default FetchDataPage;
+export default Product;

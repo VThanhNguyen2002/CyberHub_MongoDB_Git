@@ -1,0 +1,64 @@
+.sliderContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px; /* Giới hạn chiều rộng tổng của slider */
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.productTrack {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.productCard {
+  min-width: calc(100% / 3 - 20px); /* 3 sản phẩm một hàng */
+  max-width: calc(100% / 3 - 20px); /* Giữ cho sản phẩm không quá to */
+  flex-shrink: 0;
+  padding: 20px;
+  margin: 0 6px; /* Giảm khoảng cách giữa các sản phẩm */
+  box-sizing: border-box;
+}
+
+.sliderBtn {
+  background-color: rgba(0, 0, 0, 0.5); /* Nền tối để nút nổi bật */
+  color: white;
+  border: none;
+  font-size: 20px; /* Giảm kích thước nút */
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  padding: 8px; /* Giảm padding để nút không quá lớn */
+}
+
+.sliderBtn:first-child {
+  left: 0; /* Giảm khoảng cách nút bên trái */
+}
+
+.sliderBtn:last-child {
+  right: 0; /* Giảm khoảng cách nút bên phải */
+}
+
+/* Media Query để responsive trên các màn hình nhỏ hơn */
+@media (max-width: 768px) {
+  .productCard {
+    min-width: calc(100% / 2 - 20px); /* 2 sản phẩm một hàng */
+    max-width: calc(100% / 2 - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .productCard {
+    min-width: 100%; /* 1 sản phẩm một hàng cho màn hình nhỏ */
+    max-width: 100%;
+  }
+}

@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
-import FetchDataPage from './pages/FetchDataPage';
+import FetchDataPage from './components/Product';
+import HomePage from './pages/HomePage'; 
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<h1>Home Page</h1>} />
-        <Route path="/fetch-data" element={<FetchDataPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </div>
   );

@@ -1,66 +1,93 @@
-.productItem {
+.card {
+  position: relative;
   border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 16px;
-  margin: 16px;
+  background-color: #fff;
   width: 100%;
-  text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 500px; /* Set a fixed or min height for consistency */
+  transition: transform 0.3s ease;
 }
 
+.ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
 
 .image {
   width: 100%;
-  height: auto;
-  max-height: 150px;
+  height: 150px;
   object-fit: contain;
-  margin-bottom: 8px;
 }
 
-.price {
-  color: #ff4d4f;
+.productTitle {
   font-size: 16px;
-  margin: 8px 0;
-}
-
-.specsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  margin-bottom: 8px;
-  height: 200px; /* Adjust as needed to fit typical content */
-  overflow: hidden; /* This will ensure extra content doesn't increase height */
-}
-
-
-.specItem {
-  font-size: 14px;
-  margin: 4px 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-h2 {
-  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-p {
+.price {
+  color: #ff4d4f;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.specsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.specItem {
+  display: flex;
+  align-items: center;
   font-size: 14px;
-  margin: 4px 0;
+  color: #333;
+  margin-bottom: 4px;
 }
 
-.productDetails {
-  flex-grow: 1;
+.specItem i {
+  margin-right: 8px;
+  font-size: 16px;
+  color: #555;
 }
 
-.productFooter {
-  margin-top: 16px;
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.ratingValue {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.star {
+  font-size: 14px;
+  color: #ff4d4f;
+  margin-right: 4px;
+}
+
+.reviewCount {
+  font-size: 12px;
+  color: #666;
 }
