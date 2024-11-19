@@ -153,6 +153,10 @@ body, html {
 
 }
 
+.overlay {
+  z-index: 999; /* Đảm bảo popup luôn trên menu */
+}
+
 .dropdownMenu ul {
   list-style-type: none;
   padding: 0;
