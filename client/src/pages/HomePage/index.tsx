@@ -34,11 +34,25 @@ const HomePage: React.FC = () => {
     fetchProducts();
   }, []);
 
+  const laptops = products.filter((product) => product.category === 'Laptop');
+  const monitors = products.filter((product) => product.category === 'Monitor');
+  const mice = products.filter((product) => product.category === 'Mouse');
+  const keyboards = products.filter((product) => product.category === 'Keyboard');
+  const cases = products.filter((product) => product.category === 'Case');
+
   return (
     <div className={styles.homePageContainer}>
       <Header />
-      {/* Truyền products vào ProductSlider */}
-      <ProductSlider products={products} />
+      <h2 className={styles.categoryTitle}>Laptops</h2>
+      <ProductSlider products={laptops} />
+      <h2 className={styles.categoryTitle}>Màn hình</h2>
+      <ProductSlider products={monitors} />
+      <h2 className={styles.categoryTitle}>Chuột</h2>
+      <ProductSlider products={mice} />
+      <h2 className={styles.categoryTitle}>Bàn phím</h2>
+      <ProductSlider products={keyboards} />
+      <h2 className={styles.categoryTitle}>Case</h2>
+      <ProductSlider products={cases} />
       <Footer />
       <Chatbox />
     </div>

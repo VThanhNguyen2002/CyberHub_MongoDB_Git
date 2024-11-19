@@ -70,7 +70,7 @@ const Header = () => {
             <span>Hệ thống Showroom</span>
           </div>
           <div className={styles.iconItem}>
-            <i className="fa fa-camera"></i>
+            <i className="fa fa-truck"></i>
             <span>Tra cứu đơn hàng</span>
           </div>
           <div className={styles.iconItem} onClick={handleCartClick} style={{ cursor: 'pointer' }}>

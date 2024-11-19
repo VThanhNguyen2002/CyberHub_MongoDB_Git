@@ -1,43 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { FaRegSmile, FaTimes, FaBars, FaVolumeUp, FaUserCircle, FaComments } from 'react-icons/fa';
-import Picker from '@emoji-mart/react';
+import { 
+  FaBars, 
+  FaTimes, 
+  FaVolumeUp, 
+  FaUserCircle, 
+  FaComments, 
+  FaRegSmile 
+} from 'react-icons/fa';
 import styles from './Chatbox.module.css';
-import logo from '../../assets/logo1.png'; // Import your logo
+import logo from '../../assets/logo1.png';
 
 const Chatbox = () => {
   const [messages, setMessages] = useState<
     { text: string; timestamp: string; sender: string }[]
   >([]);
-  const [inputValue, setInputValue] = useState(''); // Manage input field
+  const [inputValue, setInputValue] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isChatVisible, setIsChatVisible] = useState(true);
-  const [isMuted, setIsMuted] = useState(false); // Manage sound muted state
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
-    // Display the first message after 30 seconds
+    // Hiển thị tin nhắn đầu tiên sau 30 giây
     const firstMessageTimer = setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
+      setMessages((prev) => [
+        ...prev,
         {
           text: 'CYBERHUB đang có nhiều chương trình khuyến mãi và ưu đãi hấp dẫn. Anh/Chị có thể nhắn tin vào khung chat để được tư vấn chi tiết.',
           timestamp: 'Vừa xong',
           sender: 'admin',
         },
       ]);
-    }, 30000); // 30 seconds
+    }, 30000);
 
-    // Display the second message after 1 minute 30 seconds
+    // Hiển thị tin nhắn thứ hai sau 1 phút 30 giây
     const secondMessageTimer = setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
+      setMessages((prev) => [
+        ...prev,
         {
           text: 'Nếu anh/chị vẫn chưa chọn được sản phẩm nào phù hợp hãy nhắn vào khung chat, CYBERHUB sẵn lòng giải đáp mọi thắc mắc.',
           timestamp: 'Vừa xong',
           sender: 'admin',
         },
       ]);
-    }, 90000); // 1 minute 30 seconds
+    }, 90000);
 
     return () => {
       clearTimeout(firstMessageTimer);
@@ -45,39 +51,34 @@ const Chatbox = () => {
     };
   }, []);
 
-  const toggleEmojiPicker = () => setShowEmojiPicker(!showEmojiPicker);
-  const toggleDropdown = () => setShowDropdown(!showDropdown);
+  // Toggle emoji picker
+  const toggleEmojiPicker = () => setShowEmojiPicker((prev) => !prev);
 
-  // Function to handle sending a message
+  // Toggle dropdown menu
+  const toggleDropdown = () => setShowDropdown((prev) => !prev);
+
+  // Đóng chatbox và ẩn dropdown
+  const closeChatbox = () => {
+    setIsChatVisible(false);
+    setShowDropdown(false); // Ẩn menu dropdown khi đóng chatbox
+  };
+
+  // Mở lại chatbox
+  const reopenChatbox = () => setIsChatVisible(true);
+
   const sendMessage = () => {
-    if (inputValue.trim() !== '') {
-      setMessages((prevMessages) => [
-        ...prevMessages,
+    if (inputValue.trim()) {
+      setMessages((prev) => [
+        ...prev,
         {
           text: inputValue,
           timestamp: 'Vừa xong',
           sender: 'user',
         },
       ]);
-      setInputValue(''); // Clear the input field
+      setInputValue('');
     }
   };
-
-  const addEmoji = (emoji: any) => {
-    setInputValue((prevInput) => prevInput + emoji.native);  // Use 'emoji.native' assuming the emoji object has this property
-  };  
-
-  // Handle sound mute
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
-
-  const closeChatbox = () => {
-    setIsChatVisible(false);
-    setShowDropdown(false);
-  };
-
-  const reopenChatbox = () => setIsChatVisible(true);
 
   return (
     <>
@@ -101,7 +102,7 @@ const Chatbox = () => {
           {/* Dropdown Menu */}
           {showDropdown && (
             <div className={styles.dropdown}>
-              <div className={styles.dropdownItem} onClick={toggleMute}>
+              <div className={styles.dropdownItem} onClick={() => setIsMuted(!isMuted)}>
                 <FaVolumeUp />
                 {isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
               </div>
@@ -112,14 +113,17 @@ const Chatbox = () => {
             </div>
           )}
 
-          {/* Chat Content */}
+          {/* Content */}
           <div className={styles.chatboxContent}>
-          {messages.map((message: { text: string; timestamp: string; sender: string }, index: number) => (
-          <div key={index}
-            className={
-              message.sender === 'admin' ? styles.adminMessageContainer : styles.userMessageContainer
-            }
-          >
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={
+                  message.sender === 'admin'
+                    ? styles.adminMessageContainer
+                    : styles.userMessageContainer
+                }
+              >
                 {message.sender === 'admin' ? (
                   <img src={logo} alt="Logo" className={styles.messageLogo} />
                 ) : (
@@ -136,12 +140,12 @@ const Chatbox = () => {
             ))}
           </div>
 
-          {/* Input and Emoji Section */}
+          {/* Input and Emoji Picker */}
           <div className={styles.chatboxFooter}>
             <FaRegSmile onClick={toggleEmojiPicker} className={styles.emojiIcon} />
             {showEmojiPicker && (
               <div className={styles.emojiPicker}>
-                <Picker onEmojiSelect={addEmoji} />
+                <Picker onEmojiSelect={(emoji) => setInputValue((prev) => prev + emoji.native)} />
               </div>
             )}
             <input
@@ -158,7 +162,7 @@ const Chatbox = () => {
           </div>
         </div>
       ) : (
-        <div className={`${styles.chatBar} ${isChatVisible ? styles.hide : styles.show}`} onClick={reopenChatbox}>
+        <div className={styles.chatBar} onClick={reopenChatbox}>
           <FaComments className={styles.chatBarIcon} />
           <span>Chat tư vấn - Giải đáp mọi thắc mắc</span>
         </div>

@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e60000; /* Tông màu đỏ chủ đạo */
+    color: white;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 100px;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 5px #000;
+  }
+  
+  .message {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #fff;
+  }
+  
+  .homeButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #e60000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .homeButton:hover {
+    background-color: #ffc107;
+    color: #e60000;
+    transform: scale(1.1);
+  }
+  

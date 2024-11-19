@@ -14,6 +14,12 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
+// Khởi động server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 // Định nghĩa schema và model
 const productSchema = new mongoose.Schema({
   name: String,
@@ -39,8 +45,32 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// Khởi động server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+
+// API chỉnh sửa sản phẩm
+app.put('/api/products/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedProduct = req.body;
+    const result = await ProductModel.findByIdAndUpdate(id, updatedProduct, { new: true });
+    if (!result) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating product' });
+  }
+});
+
+// API xóa sản phẩm
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await ProductModel.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting product' });
+  }
 });
