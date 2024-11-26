@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import styles from './RegisterPopUp.module.css';
+// RegisterPopUp.tsx
 
-const MySwal = withReactContent(Swal);
+import React, { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import styles from './RegisterPopUp.module.css';
 
 interface RegisterPopUpProps {
   onClose: () => void;
@@ -15,28 +15,29 @@ const RegisterPopUp: React.FC<RegisterPopUpProps> = ({ onClose }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!email || !username || !password || !confirmPassword) {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Vui lòng nhập đầy đủ thông tin!',
-      });
+      toast.error('Vui lòng nhập đầy đủ thông tin!');
       return;
     }
+
+    if (!email.endsWith('@gmail.com')) {
+      toast.error('Email phải có định dạng @gmail.com');
+      return;
+    }
+
     if (password !== confirmPassword) {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Mật khẩu không khớp!',
-      });
+      toast.error('Mật khẩu không khớp!');
       return;
     }
-    MySwal.fire({
-      icon: 'success',
-      title: 'Thành công',
-      text: 'Đăng ký thành công!',
-    }).then(() => onClose());
+
+    try {
+      await axios.post('/api/auth/register', { email, username, password });
+      toast.success('Đăng ký thành công!');
+      onClose();
+    } catch (error: any) {
+      toast.error(error.response.data.message || 'Đăng ký thất bại');
+    }
   };
 
   return (

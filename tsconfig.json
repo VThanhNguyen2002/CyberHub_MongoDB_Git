@@ -24,6 +24,6 @@
       "@interfaces/*": ["client/src/interfaces/*"]
     }
   },
-  "include": ["client/src", "api/server.js"],
+  "include": ["client/src", "api/server.js", "server/routes", "server/models", "server/controllers", "server/middlewares", "server/server.js", "server/connectDatabase.js"],
   "exclude": ["node_modules", "**/*.js"]
 }

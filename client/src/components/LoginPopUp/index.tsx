@@ -1,10 +1,10 @@
+// client/src/components/LoginPopUp.tsx
+
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import styles from './PopUp.module.css';
 import RegisterPopUp from '../RegisterPopUp';
-
-const MySwal = withReactContent(Swal);
 
 interface LoginPopUpProps {
   onClose: () => void;
@@ -15,20 +15,30 @@ const LoginPopUp: React.FC<LoginPopUpProps> = ({ onClose }) => {
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!username || !password) {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Vui lòng nhập đầy đủ thông tin!',
-      });
+      toast.error('Vui lòng nhập đầy đủ thông tin!');
       return;
     }
-    MySwal.fire({
-      icon: 'success',
-      title: 'Thành công',
-      text: 'Đăng nhập thành công!',
-    }).then(() => onClose());
+
+    try {
+      const response = await axios.post('/api/auth/login', { username, password });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('role', response.data.role);
+      localStorage.setItem('username', response.data.username);
+      localStorage.setItem('userId', response.data.userId);
+      toast.success('Đăng nhập thành công!');
+      onClose();
+      // Điều hướng đến trang admin nếu là admin
+      if (response.data.role === 'admin') {
+        window.location.href = '/admin/dashboard';
+      }
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Đăng nhập thất bại');
+    }
   };
 
   if (isRegistering) {

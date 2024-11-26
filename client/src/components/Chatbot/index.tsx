@@ -1,33 +1,47 @@
+// Chatbox/index.tsx
+
 import React, { useState, useEffect } from 'react';
-import { 
-  FaBars, 
-  FaTimes, 
-  FaVolumeUp, 
-  FaUserCircle, 
-  FaComments, 
-  FaRegSmile 
+import {
+  FaBars,
+  FaTimes,
+  FaVolumeUp,
+  FaUserCircle,
+  FaComments,
+  FaRegSmile,
 } from 'react-icons/fa';
 import styles from './Chatbox.module.css';
 import logo from '../../assets/logo1.png';
+import axios from 'axios';
 
 const Chatbox = () => {
   const [messages, setMessages] = useState<
-    { text: string; timestamp: string; sender: string }[]
+    { content: string; timestamp: string; sender: string }[]
   >([]);
   const [inputValue, setInputValue] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isChatVisible, setIsChatVisible] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    // Lấy userId từ localStorage
+    const storedUserId = localStorage.getItem('userId');
+    setUserId(storedUserId);
+
+    // Lấy tin nhắn cũ
+    if (storedUserId) {
+      fetchMessages(storedUserId);
+    }
+
     // Hiển thị tin nhắn đầu tiên sau 30 giây
     const firstMessageTimer = setTimeout(() => {
       setMessages((prev) => [
         ...prev,
         {
-          text: 'CYBERHUB đang có nhiều chương trình khuyến mãi và ưu đãi hấp dẫn. Anh/Chị có thể nhắn tin vào khung chat để được tư vấn chi tiết.',
-          timestamp: 'Vừa xong',
+          content:
+            'CYBERHUB đang có nhiều chương trình khuyến mãi và ưu đãi hấp dẫn. Anh/Chị có thể nhắn tin vào khung chat để được tư vấn chi tiết.',
+          timestamp: new Date().toISOString(),
           sender: 'admin',
         },
       ]);
@@ -38,8 +52,9 @@ const Chatbox = () => {
       setMessages((prev) => [
         ...prev,
         {
-          text: 'Nếu anh/chị vẫn chưa chọn được sản phẩm nào phù hợp hãy nhắn vào khung chat, CYBERHUB sẵn lòng giải đáp mọi thắc mắc.',
-          timestamp: 'Vừa xong',
+          content:
+            'Nếu anh/chị vẫn chưa chọn được sản phẩm nào phù hợp hãy nhắn vào khung chat, CYBERHUB sẵn lòng giải đáp mọi thắc mắc.',
+          timestamp: new Date().toISOString(),
           sender: 'admin',
         },
       ]);
@@ -50,6 +65,17 @@ const Chatbox = () => {
       clearTimeout(secondMessageTimer);
     };
   }, []);
+
+  const fetchMessages = async (userId: string) => {
+    try {
+      const response = await axios.get(`/api/chat/${userId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      setMessages(response.data);
+    } catch (error) {
+      console.error('Lỗi khi lấy tin nhắn:', error);
+    }
+  };
 
   // Toggle emoji picker
   const toggleEmojiPicker = () => setShowEmojiPicker((prev) => !prev);
@@ -66,24 +92,30 @@ const Chatbox = () => {
   // Mở lại chatbox
   const reopenChatbox = () => setIsChatVisible(true);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (inputValue.trim()) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          text: inputValue,
-          timestamp: 'Vừa xong',
-          sender: 'user',
-        },
-      ]);
-      setInputValue('');
+      try {
+        const response = await axios.post(
+          '/api/chat',
+          { content: inputValue },
+          {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          }
+        );
+        setMessages((prev) => [...prev, response.data]);
+        setInputValue('');
+      } catch (error) {
+        console.error('Lỗi khi gửi tin nhắn:', error);
+      }
     }
   };
 
   return (
     <>
       {isChatVisible ? (
-        <div className={`${styles.chatbox} ${isChatVisible ? styles.show : styles.hide}`}>
+        <div
+          className={`${styles.chatbox} ${isChatVisible ? styles.show : styles.hide}`}
+        >
           {/* Header */}
           <div className={styles.chatboxHeader}>
             <div className={styles.headerLeft}>
@@ -130,24 +162,20 @@ const Chatbox = () => {
                   <FaUserCircle className={styles.messageUserIcon} />
                 )}
                 <div className={styles.messageBubble}>
-                  {message.text}
+                  {message.content}
                   <div className={styles.timestamp}>
-                    {message.sender === 'admin' ? 'CyberHub · ' : 'Khách hàng · '}
-                    {message.timestamp}
+                    {message.sender === 'admin' ? 'CyberHub · ' : 'Bạn · '}
+                    {new Date(message.timestamp).toLocaleString()}
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Input and Emoji Picker */}
+          {/* Input */}
           <div className={styles.chatboxFooter}>
             <FaRegSmile onClick={toggleEmojiPicker} className={styles.emojiIcon} />
-            {showEmojiPicker && (
-              <div className={styles.emojiPicker}>
-                <Picker onEmojiSelect={(emoji) => setInputValue((prev) => prev + emoji.native)} />
-              </div>
-            )}
+            {/* Nếu cần thêm Emoji Picker, bạn có thể tích hợp thư viện tương ứng */}
             <input
               className={styles.input}
               type="text"

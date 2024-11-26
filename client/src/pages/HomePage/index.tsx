@@ -1,9 +1,13 @@
+// HomePage.tsx
+
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Chatbox from '../../components/Chatbot';
 import ProductSlider from '../../components/ProductSlider';
 import styles from './HomePage.module.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface Product {
   _id: string;
@@ -24,11 +28,10 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/api/products');
-        const data = await response.json();
-        setProducts(data);
+        const response = await axios.get('/api/products');
+        setProducts(response.data);
       } catch (error) {
-        console.error('Failed to fetch products', error);
+        toast.error('Failed to fetch products');
       }
     };
     fetchProducts();

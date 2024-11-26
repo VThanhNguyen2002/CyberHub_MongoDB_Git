@@ -94,10 +94,7 @@
 .adminMessageContainer {
     justify-content: flex-start;
 }
-  
-.userMessageContainer {
-    justify-content: flex-end;
-}
+
   
 .messageUserIcon {
     font-size: 30px;
@@ -215,3 +212,17 @@
     transform: scale(0);
     transition: transform 0.3s ease-in-out;
 }
+
+.sendButton {
+    padding: 10px 20px;
+  }
+
+  .messageBubble.user {
+    background-color: #0084ff;
+    color: white;
+  }
+  
+  .messageBubble.admin {
+    background-color: #f1f0f0;
+    color: black;
+  }

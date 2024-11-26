@@ -182,3 +182,28 @@ body, html {
 .dropdownMenu li:hover {
   background-color: #f1f1f1; /* Nền xám nhạt khi hover */
 }
+
+
+.profileDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: rgb(190, 23, 23);
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+.profileDropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profileDropdown li {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.profileDropdown li:hover {
+  background-color: #a41515;
+}
