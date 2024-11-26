@@ -5,6 +5,13 @@ import {
 } from '@mui/material';
 import styles from './AdminDashboard.module.css';
 
+interface User {
+  _id?: string;
+  email: string;
+  username: string;
+  role: string;
+}
+
 interface UserListProps {
   users: User[];
   onDeleteUser: (id: string) => void;

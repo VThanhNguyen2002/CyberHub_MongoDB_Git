@@ -5,7 +5,9 @@ interface ProductItemProps {
   name: string;
   price: number;
   discount: number;
+  stock: number;
   image_url: string;
+  basic_specs: string;
   description: string;
   category: string;
   rating: number;
@@ -67,27 +69,28 @@ const ProductItem: React.FC<ProductItemProps> = ({
 
 // Hàm phân loại thông số kỹ thuật dựa trên category
 const getSpecsForCategory = (category: string, description: string) => {
-  let specs = [];
+  let specs: string[] = [];
   switch (category) {
     case 'Monitor':
-      specs = description.match(/(\d+\.?\d*) inch|Full HD|IPS|2K|180Hz|100Hz/g);
+      specs = description.match(/(\d+\.?\d*) inch|Full HD|IPS|2K|180Hz|100Hz/g) || [];
       break;
     case 'Laptop':
-      specs = description.match(/(Intel.*|AMD.*|\d+GB RAM|\d+GB SSD|\d+\.?\d* inch)/g);
+      specs = description.match(/(Intel.*|AMD.*|\d+GB RAM|\d+GB SSD|\d+\.?\d* inch)/g) || [];
       break;
     case 'Mouse':
-      specs = description.match(/(\d+,\d+ DPI|nút lập trình|Wireless|Off White)/g);
+      specs = description.match(/(\d+,\d+ DPI|nút lập trình|Wireless|Off White)/g) || [];
       break;
     case 'Keyboard':
-      specs = description.match(/(Switch|Wireless|RGB|Beta|Brown Switch|Blue Switch)/g);
+      specs = description.match(/(Switch|Wireless|RGB|Beta|Brown Switch|Blue Switch)/g) || [];
       break;
     case 'Case':
-      specs = description.match(/(Black|RGB|kích thước|màu đen)/g);
+      specs = description.match(/(Black|RGB|kích thước|màu đen)/g) || [];
       break;
     default:
       specs = [];
   }
-  return specs && specs.length > 0 ? specs : ['Thông tin không có sẵn'];
+  return specs.length > 0 ? specs : ['Thông tin không có sẵn'];
 };
+
 
 export default ProductItem;

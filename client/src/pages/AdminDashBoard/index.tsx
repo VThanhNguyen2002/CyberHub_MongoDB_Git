@@ -74,12 +74,15 @@ const AdminDashboard: React.FC = () => {
       const response = await axios.get('/api/products');
       setProducts(response.data);
       // Lấy danh sách categories
-      const uniqueCategories = Array.from(new Set(response.data.map((p: Product) => p.category)));
+      const uniqueCategories = Array.from(
+        new Set(response.data.map((p: Product) => p.category))
+      ) as string[];
       setCategories(uniqueCategories);
     } catch (error) {
       toast.error('Lỗi khi lấy danh sách sản phẩm');
     }
   };
+  
 
   const fetchUsers = async () => {
     try {

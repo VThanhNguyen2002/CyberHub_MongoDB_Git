@@ -5,6 +5,20 @@ import {
 } from '@mui/material';
 import styles from './AdminDashboard.module.css';
 
+// Định nghĩa interface Product
+interface Product {
+  _id?: string;
+  name: string;
+  price: number;
+  category: string;
+  discount: number;
+  stock: number;
+  description: string;
+  image_url: string;
+  basic_specs: string;
+  rating: number;
+}
+
 interface ProductListProps {
   products: Product[];
   categories: string[];
