@@ -8,6 +8,22 @@
   margin-bottom: 20px;
 }
 
+.controlContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Khoảng cách giữa nút và bộ lọc */
+  margin-top: 20px; /* Khoảng cách phía trên */
+}
+
+.filterFormControl {
+  min-width: 200px; /* Đảm bảo đủ rộng để hiển thị chữ "Danh Mục" */
+}
+
+.addButton {
+  /* Điều chỉnh kích thước nút nếu cần */
+  height: 40px;
+}
+
 .tableContainer {
   margin-top: 20px;
 }
@@ -34,11 +50,6 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-.filterFormControl {
-  margin-top: 50px;
-  min-width: 200px;
 }
 
 .chatContainer {
@@ -71,10 +82,6 @@
 .messageTimestamp {
   font-size: 0.8em;
   color: #999;
-}
-
-.addButton {
-  margin: 20px 0;
 }
 
 .filterIcon {

@@ -82,7 +82,6 @@ const AdminDashboard: React.FC = () => {
       toast.error('Lỗi khi lấy danh sách sản phẩm');
     }
   };
-  
 
   const fetchUsers = async () => {
     try {
@@ -242,7 +241,6 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className={styles.adminDashboard}>
-      <h2>Admin Dashboard</h2>
       <Button
         variant="contained"
         color="secondary"
@@ -258,25 +256,33 @@ const AdminDashboard: React.FC = () => {
 
       {currentTab === 0 && (
         <div>
-          <Button className={styles.addButton} variant="contained" color="primary" onClick={handleAddProduct}>
-            Thêm Sản Phẩm
-          </Button>
-
-          {/* Bộ lọc danh mục */}
-          <FormControl className={styles.filterFormControl}>
-            <InputLabel>Danh Mục</InputLabel>
-            <Select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value as string)}
+          {/* Đặt nút và bộ lọc vào container */}
+          <div className={styles.controlContainer}>
+            <Button
+              className={styles.addButton}
+              variant="contained"
+              color="primary"
+              onClick={handleAddProduct}
             >
-              <MenuItem value="">Tất cả</MenuItem>
-              {categories.map((category) => (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              Thêm Sản Phẩm
+            </Button>
+
+            {/* Bộ lọc danh mục */}
+            <FormControl className={styles.filterFormControl}>
+              <InputLabel></InputLabel>
+              <Select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value as string)}
+              >
+                <MenuItem value="">Tất cả</MenuItem>
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
           <TableContainer component={Paper} className={styles.tableContainer}>
             <Table>
@@ -372,7 +378,9 @@ const AdminDashboard: React.FC = () => {
                   label="Danh Mục Mới"
                   fullWidth
                   value={currentProduct.category}
-                  onChange={(e) => setCurrentProduct({ ...currentProduct, category: e.target.value })}
+                  onChange={(e) =>
+                    setCurrentProduct({ ...currentProduct, category: e.target.value })
+                  }
                 />
               )}
               <TextField
