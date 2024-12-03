@@ -57,6 +57,7 @@ const HomePage: React.FC = () => {
       <h2 className={styles.categoryTitle}>Case</h2>
       <ProductSlider products={cases} />
       <Footer />
+      
       <Chatbox />
     </div>
   );
