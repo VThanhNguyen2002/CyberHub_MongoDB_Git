@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# 🛍️ Web Bán Đồ Công Nghệ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📖 Giới thiệu
 
-Currently, two official plugins are available:
+Đây là một ứng dụng web bán đồ công nghệ được xây dựng với mục tiêu cung cấp trải nghiệm người dùng tốt nhất khi mua sắm các sản phẩm công nghệ. Ứng dụng sử dụng **React.js** cho frontend, **Node.js (Express)** cho backend, và **MongoDB Atlas** làm cơ sở dữ liệu. Toàn bộ ứng dụng được triển khai trên **Vercel**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tính năng chính
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 🎨 Frontend (React.js):
+- **Trang chủ:** Hiển thị danh mục sản phẩm.
+- **Giao diện hiện đại:** Thiết kế responsive, thân thiện trên mọi thiết bị.
 
-- Configure the top-level `parserOptions` property like this:
+### 🔧 Backend (Node.js):
+- **API RESTful:** Cung cấp dữ liệu sản phẩm, đơn hàng, và người dùng.
+- **Xử lý CRUD:** Quản lý sản phẩm
+- **Xác thực:** Bảo mật thông qua **JWT**.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 💾 Cơ sở dữ liệu:
+- **MongoDB Atlas:** Lưu trữ dữ liệu sản phẩm, người dùng và đơn hàng.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 🌐 Triển khai:
+- **Vercel:** Triển khai đồng thời cả frontend và backend.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 🛠️ Công nghệ sử dụng
+
+- **Frontend:** React.js, TypeScript, CSS
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB Atlas
+- **Triển khai:** Vercel
+
+---
+
+### 1️⃣ Yêu cầu hệ thống
+- **Node.js** >= 14.x
+- **npm** hoặc **yarn**
+- **Tài khoản MongoDB Atlas**
