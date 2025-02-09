@@ -13,12 +13,12 @@
 - **Giao diện hiện đại:** Thiết kế responsive, thân thiện trên mọi thiết bị.
 
 ### 🔧 Backend (Node.js):
-- **API RESTful:** Cung cấp dữ liệu sản phẩm, đơn hàng, và người dùng.
+- **API RESTful:** Cung cấp dữ liệu sản phẩm và người dùng.
 - **Xử lý CRUD:** Quản lý sản phẩm
 - **Xác thực:** Bảo mật thông qua **JWT**.
 
 ### 💾 Cơ sở dữ liệu:
-- **MongoDB Atlas:** Lưu trữ dữ liệu sản phẩm, người dùng và đơn hàng.
+- **MongoDB Atlas:** Lưu trữ dữ liệu sản phẩm, người dùng
 
 ### 🌐 Triển khai:
 - **Vercel:** Triển khai đồng thời cả frontend và backend.
