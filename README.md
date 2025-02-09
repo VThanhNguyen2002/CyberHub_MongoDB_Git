@@ -38,3 +38,45 @@
 - **Node.js** >= 14.x
 - **npm** hoặc **yarn**
 - **Tài khoản MongoDB Atlas**
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 🛍️ Tech Products Web Store
+
+## 📖 Introduction
+
+This is a web application designed for selling tech products, aimed at providing the best user experience for online shopping. The application utilizes **React.js** for the frontend, **Node.js (Express)** for the backend, and **MongoDB Atlas** for the database. The entire project is deployed on **Vercel**.
+
+---
+
+## 🚀 Key Features
+
+### 🎨 Frontend (React.js):
+- **Homepage:** Displays product categories.
+- **Modern Interface:** Responsive design, user-friendly on all devices.
+
+### 🔧 Backend (Node.js):
+- **RESTful API:** Provides product and user data.
+- **CRUD Operations:** Manage products.
+- **Authentication:** Secured with **JWT**.
+
+### 💾 Database:
+- **MongoDB Atlas:** Stores product and user data.
+
+### 🌐 Deployment:
+- **Vercel:** Deploys both frontend and backend seamlessly.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend:** React.js, TypeScript, CSS
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB Atlas
+- **Deployment:** Vercel
+
+---
+
+### 1️⃣ System Requirements
+- **Node.js** >= 14.x
+- **npm** or **yarn**
+- **MongoDB Atlas Account**
+
